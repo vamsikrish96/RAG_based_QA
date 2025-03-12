@@ -1,4 +1,4 @@
-name: Python CI
+name: Run Unit Tests on Windows
 
 on:
   push:
@@ -10,18 +10,18 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       # Checkout the repository
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v2
 
       # Set up Python environment
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.x'  # Specify the Python version
+          python-version: '3.10'
 
       # Install dependencies
       - name: Install dependencies
