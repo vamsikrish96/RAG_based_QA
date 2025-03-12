@@ -24,12 +24,16 @@ He is also proficient in deployment strategies using software products.
 
 
 
-## Time Analysis of complete pipeline(seconds)
-Time taken to load LLM model: 0.34
-Time taken to create database and initalize embedding model: 5.05
-Time taken to upload PDF: 3.47
-Time taken to generate response: 3.99
-Time taken to Query and Generate response: 6.04
+# Time Analysis of Complete Pipeline (seconds)
+
+| Task | Time Taken (seconds) |
+|------|----------------------|
+| Load LLM model | 0.34 |
+| Create database and initialize embedding model | 5.05 |
+| Upload PDF | 3.47 |
+| Generate response | 3.99 |
+| Query and generate response | 6.04 |
+
 
 
 ## Steps to Run
