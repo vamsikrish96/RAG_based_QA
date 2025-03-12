@@ -5,7 +5,7 @@ from genmodel import GenerativeModel
 import os
 import shutil
 
-# Database tests not running in Github CI. Please use local host and make GITHUBC
+# Database tests not running in Github CI. Please use local host and make GITHUBCI is False
 GITHUBCI = True
 
 if not GITHUBCI:
