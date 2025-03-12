@@ -32,6 +32,7 @@ jobs:
     steps:
       - name: Install Dependencies
         run: |
+          ls
           pip install -r ./requirements.txt
 
   run-tests:
@@ -40,4 +41,5 @@ jobs:
     steps:
       - name: Run Unit Tests
         run: |
+          ls
           python unittest_RAG.py
