@@ -6,9 +6,9 @@ import os
 import shutil
 
 # Database tests not running in Github CI. Please use local host and make GITHUBC
-GITHUBCI = False
+GITHUBCI = True
 
-if GITHUBCI:
+if not GITHUBCI:
     print("Cleaning up previous DB")
     if os.path.exists("./pdf_collection"):
         shutil.rmtree("./pdf_collection")
@@ -20,7 +20,7 @@ def CheckKeyWords(text):
     """
     Check if the text contains the keywords
     """
-    keywords = ["Python", "C"]
+    keywords = ["Python", "C++"]
     for keyword in keywords:
         if keyword not in text:
             return False
@@ -28,9 +28,9 @@ def CheckKeyWords(text):
 
 class TestRAGPipeline(unittest.TestCase):
     
-    def CompleteRAGTest(self):
+    def testRAG(self):
         # Sample Data
-        if GITHUBCI:
+        if not GITHUBCI:
             file_path = r"Resume_VamsikrishnaChemudupati.pdf"
             query = "Can you give the skillsets which Vamsi has worked with?"
             
@@ -55,11 +55,11 @@ class TestRAGPipeline(unittest.TestCase):
             self.assertGreater(len(response), 0, "Response should not be empty")
             self.assertEqual(CheckKeyWords(response), True, "Response should contain the keywords")
 
-    def DocumentReadTest(self):
+    def testDocumentRead(self):
         file_path = r"Resume_VamsikrishnaChemudupati.pdf"
         # Execute functions
         pdf_text = ReadPdf(file_path)
-        self.assertIsInstance(pdf_text, str, "PDF text should be a string")
+        self.assertEqual(len(pdf_text), 9069, "PDF text length should be same")
 
 if __name__ == '__main__':
     unittest.main()

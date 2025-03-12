@@ -3,16 +3,26 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema.document import Document
 from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
-
+import os
 
 def ReadPdf(file_path):
-    with open(file_path, 'rb') as file:
-        reader = PyPDF2.PdfReader(file)
-        text = ''
-        for page_num in range(len(reader.pages)):
-            page = reader.pages[page_num]
-            text += page.extract_text()
-    return text
+    all_text = ""
+
+    if os.path.isdir(file_path):
+        pdf_files = [os.path.join(file_path, f) for f in os.listdir(file_path) if f.endswith(".pdf")]
+    else:
+        pdf_files = [file_path]
+
+    for pdf in pdf_files:
+        with open(pdf, 'rb') as file:
+            reader = PyPDF2.PdfReader(file)
+            for page in reader.pages:
+                all_text += page.extract_text() + "\n"
+
+    return all_text
+
+
+
 
 def GetDocuments(pdf_text):
     splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=100)

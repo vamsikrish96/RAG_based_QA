@@ -7,6 +7,31 @@ A Question Answering API using Retrieval Augmented Generation.
 - **ChromaDB**
 - **FastAPI**
 
+
+## Sample Run Output
+
+Query:  Can you give the skillsets which Vamsi has worked with?
+
+Response:  Vamsi has worked with various programming languages and tools in the field of software systems, including:
+
+- Programming languages: Python, C, C++, SQL, Shell, Matlab, Simulink, Jenkins, Ansible.
+- Machine Learning frameworks: TensorFlow, PyTorch, Scikit-learn, Pandas, NumPy, Matplotlib, Flask, HuggingFace, LlamaIndex, LangChain, Cython.
+- Time series analysis tools: Git, Slurm, Azure, Apache Airflow, Docker, REST API, CI/CD.
+
+He is also proficient in deployment strategies using software products.
+
+**Time taken to Query and Generate response: 6.04859471321106**
+
+
+
+## Time Analysis of complete pipeline(seconds)
+Time taken to load LLM model: 0.34
+Time taken to create database and initalize embedding model: 5.05
+Time taken to upload PDF: 3.47
+Time taken to generate response: 3.99
+Time taken to Query and Generate response: 6.04
+
+
 ## Steps to Run
 
 1. **Install the required dependencies** in a virtual environment (Conda or venv):

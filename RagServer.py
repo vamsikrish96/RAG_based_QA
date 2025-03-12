@@ -7,12 +7,14 @@ import uvicorn
 import os 
 import shutil
 from langchain.globals import set_verbose, set_debug
-
+import time
 
 app = FastAPI(debug=True)
 
 # Global Variables
+start_time = time.time()
 llm = GenerativeModel(r"llama3.2:1b")  # LLM Model instance needs to be global to assist in changing the model dynamically.
+print("Time taken to load LLM model:", time.time() - start_time)
 
 class QueryRequest(BaseModel):
     query: str
@@ -29,7 +31,9 @@ if os.path.exists("./pdf_collection"):
     shutil.rmtree("./pdf_collection")
 
 #Creating a new database
+start_time = time.time()
 database = VectorDB("sentence-transformers/all-mpnet-base-v2","./pdf_collection","pdf_collection")
+print("Time taken to create database and initalize embedding model:", time.time() - start_time)
 
 @app.post("/load_model/")
 async def load_model(request: ModelRequest):
@@ -90,8 +94,14 @@ async def query_knowledge_base(request: QueryRequest):
 
     try:
         db = database.GetDatabaseObj()
+        start_time = time.time()
         retriever = db.as_retriever(search_kwargs={"k": 2})
+        print("Time taken to retrieve documents:", time.time() - start_time, flush=True)
+
+        start_time = time.time()
         response = llm.generate_response(request.query, retriever)
+        print("Time taken to generate response:", time.time() - start_time, flush=True)
+
         return {"response": response}
 
     except Exception as e:
