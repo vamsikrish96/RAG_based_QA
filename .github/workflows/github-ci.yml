@@ -13,7 +13,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
   setup-python:
     runs-on: windows-latest
@@ -30,9 +30,6 @@ jobs:
     steps:
       - name: Install Dependencies
         run: |
-          python -m pip install --upgrade pip
-          echo ${{ github.workspace }}
-          cd ${{ github.workspace }}
           pip install -r requirements.txt
 
   run-tests:
@@ -41,5 +38,4 @@ jobs:
     steps:
       - name: Run Unit Tests
         run: |
-          cd ${{ github.workspace }}
           python unittest_RAG.py
