@@ -1,6 +1,7 @@
 import requests
 import time
 BASE_URL = "http://localhost:8000"
+from concurrent.futures import ThreadPoolExecutor
 
 
 def upload_pdf(file_path):
@@ -25,12 +26,10 @@ def check_api_status():
     response = requests.get(url)
     print("API Status:", response.json())
 
-
-if __name__ == "__main__":
-    check_api_status()
-    # Step 1: Upload a PDF file or directory containing PDF files
+def get_data(id):
     pdf_path = r"Resume_VamsikrishnaChemudupati.pdf"  # Replace with your actual file path
 
+    print(f"Executing id {id}")
     start_time = time.time()
     upload_pdf(pdf_path)
     print("Time taken to upload PDF:", time.time() - start_time)
@@ -44,5 +43,12 @@ if __name__ == "__main__":
 
     print("Time taken to Query and Generate response:", time.time() - start_time)
     print("\n**********************************\n")
+
+if __name__ == "__main__":
+    check_api_status()
+    # Step 1: Upload a PDF file or directory containing PDF files
+    ids = range(1,50)
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        executor.map(get_data,ids)
 
     
